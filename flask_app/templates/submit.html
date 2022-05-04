@@ -1,0 +1,69 @@
+{% extends "header.html" %}
+{% block content %}
+
+<div class="row mt-3">
+    <div class="col-sm-6">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Paste the results of your Wordle game...</h2>
+
+        <div class="form-group">
+            <form action="" method="post">
+                {{ paste_form.csrf_token }}
+
+                {{ paste_form.text(class="form-control", rows="8") }}
+
+                {% if paste_form.text.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in paste_form.text.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {{ paste_form.submit(class="btn btn-outline-success") }}
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h2>... or enter in the Wordle day and number of guesses</h2>
+
+        <div class="form-group">
+            <form action="" method="post">
+                {{ manual_form.csrf_token }}
+
+                {{ manual_form.wordle_day.label(class="form-control-label") }}
+                {{ manual_form.wordle_day(class="form-control") }}
+
+                {% if manual_form.wordle_day.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in manual_form.wordle_day.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {{ manual_form.guesses.label(class="form-control-label") }}
+                {{ manual_form.guesses(class="form-control") }}
+
+                {% if manual_form.guesses.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in manual_form.guesses.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {{ manual_form.submit(class="btn btn-outline-success") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

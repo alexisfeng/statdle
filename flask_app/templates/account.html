@@ -1,0 +1,61 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="row mt-3">
+    <div class="col text-center">
+        <h1>Hello, {{ current_user.username }}.</h1>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col text-center">
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <h3>Change your password</h3>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="" method="post">
+            {{ update_password_form.csrf_token }}
+            <div class="form-group">
+                {{ update_password_form.current_password.label(class="form-control-label") }}
+                {{ update_password_form.current_password(class="form-control form-control-lg") }}
+
+                {{ update_password_form.new_password.label(class="form-control-label") }}
+                {{ update_password_form.new_password(class="form-control form-control-lg") }}
+
+                {% if update_password_form.new_password.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in update_password_form.new_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {{ update_password_form.confirm_password.label(class="form-control-label") }}
+                {{ update_password_form.confirm_password(class="form-control form-control-lg") }}
+
+                {% if update_password_form.confirm_password.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in update_password_form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ update_password_form.submit }}
+            </div>
+        </form>
+    </div>
+</div>
+{# <a href="{{ url_for('movies.user_detail', username=current_user.username) }}">
+    <h4>Click here to see all of your posts and comments!</h4>
+</a> #}
+{% endblock %}>

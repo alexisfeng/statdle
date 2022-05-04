@@ -1,0 +1,49 @@
+{% extends "header.html" %}
+{% block content %}
+
+<div class="row mt-3">
+    <div class="col text-center">
+        {% if current_user.is_authenticated %}
+            <h1>Welcome to Statdle, {{ current_user.username }}!</h1>
+        {% else %}
+        <h1>Welcome to Statdle!</h1>
+        {% endif %}
+        Submit Wordle games, view stats for a Wordle day, or view stats for a user.
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col text-center">
+        <h3><a href="{{ url_for('wordles.wordle_detail', wordle_day=todays_wordle) }}">
+            View Today's Wordle - {{ todays_wordle }}
+        </a></h3>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col d-flex justify-content-center sm-2">
+        <form action="/" class="form-inline my-2 my-lg-0" method="POST">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-info">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {{ form.csrf_token }}
+            {{ form.search_query(class="form-control", placeholder="Day") }}
+
+            {% if form.search_query.errors %}
+            <div class="alert alert-warning" role="alert">
+                {% for error in form.search_query.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {{ form.submit(class="btn btn-outline-success") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

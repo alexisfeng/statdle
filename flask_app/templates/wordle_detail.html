@@ -1,0 +1,53 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="row mt-3">
+    {% set day = wordle_day | int %}
+
+    <div class="col text-right my-auto">
+        {% if day > 1 %}
+        <a href="{{ url_for('wordles.wordle_detail', wordle_day=day-1) }}">
+            Previous Day
+        </a>
+        {% endif %}
+    </div>
+    <div class="col text-center my-auto">
+        <h1>Wordle {{ wordle_day }}</h1>
+    </div>
+    <div class="col text-left my-auto">
+        <a href="{{ url_for('wordles.wordle_detail', wordle_day=day+1) }}">
+            Next Day
+        </a>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col text-center">
+        {% if fig %}
+            <img src="data:image/png;charset=utf-8;base64,{{ fig }}">
+        {% endif %}
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
+        <ul class="media-list">
+            {% for submission in submissions %}
+            <li class="media review-item">
+                <div class="media-body">
+                    <span class="float-right">
+                        <small>{{ submission.date }}</small>
+                    </span>
+                        <h5><a href="{{ url_for('wordles.user_detail', username=submission.user.username) }}">
+                            @{{ submission.user.username }}
+                        </a></h5>
+                    <p>
+                        Wordle {{ submission.wordle_day }}
+                        {{ submission.guesses }}/6
+                    </p>
+                    <pre>{{ submission.grid }}</pre>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

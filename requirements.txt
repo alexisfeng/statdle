@@ -1,0 +1,12 @@
+Flask==2.1.2
+flask_bcrypt==1.0.1
+flask_login==0.6.1
+flask_mongoengine==1.0.0
+flask_talisman==1.0.0
+flask_wtf==1.0.1
+matplotlib==3.5.2
+Werkzeug==2.1.2
+WTForms==3.0.1
+email_validator
+python-dotenv
+python-decouple
