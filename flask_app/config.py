@@ -1,5 +1,4 @@
-from decouple import AutoConfig
-config = AutoConfig(search_path='..')
+import os
 
-SECRET_KEY = config('SECRET_KEY')
-MONGODB_HOST = config('MONGODB_HOST')
+SECRET_KEY = os.environ('SECRET_KEY')
+MONGODB_HOST = os.environ('MONGODB_HOST')

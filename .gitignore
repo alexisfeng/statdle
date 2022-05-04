@@ -288,6 +288,3 @@ pip-selfcheck.json
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,flask,venv
-
-# Ignore init
-flask_app/__init__.py
