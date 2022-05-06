@@ -1,40 +1,51 @@
-movie {
-    max-width: 80;
-    padding: 1; 
-}
-
-.card-body > img {
-    max-width: 200;
-}
-
 .top10 { 
     margin-top:10px; 
 }
 
-.media-list {
-    border-top: 1px dashed rgb(150, 150, 150);
-}
-
-.media-body {
+.submission-body {
     display: inline;
 }
 
-.review-item {
-    border-bottom: 1px dashed #a5a5a5;
+.responsive {
+    max-width: 100%;
+    height: auto;
 }
 
-.propic {
-    max-width: 50%;
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%
 }
 
-.comment-pic {
-    max-width: 64px;
+.card-text {
+    color: rgb(142, 142, 142);
 }
-/* .nav-user {
-    border-right: 1px #1d1d1d;
-} */
+
+.card-columns {
+    display: inline-block;
+    @include media-breakpoint-only(xl) {
+      column-count: 5;
+    }
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(md) {
+      column-count: 3;
+    }
+    @include media-breakpoint-only(sm) {
+      column-count: 2;
+    }
+  }
+
+.card-subtitle {
+    color: dimgray;
+}
 
 .token {
     max-width: 800;
     word-wrap: break-word;
+}
+
+.navbar {
+    background-color: #538d4e;
 }

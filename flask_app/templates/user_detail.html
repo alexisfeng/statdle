@@ -8,31 +8,40 @@
 <div class="row mt-3">
     <div class="col text-center">
         {% if fig %}
-            <img src="data:image/png;charset=utf-8;base64,{{ fig }}">
+            <img src="data:image/png;charset=utf-8;base64,{{ fig }}" class="responsive">
         {% endif %}
     </div>
 </div>
 <div class="row mt-3">
-    <div class="col">
+    <div class="col mb-3">
         <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
-        <ul class="media-list">
             {% for submission in submissions %}
-            <li class="media review-item">
-                <div class="media-body">
-                    <span class="float-right">
-                        <small>{{ submission.date }}</small>
-                    </span>
-                    <p>
-                        <a href="{{ url_for('wordles.wordle_detail', wordle_day=submission.wordle_day) }}">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="float-right">
+                            <small>{{ submission.date }}</small>
+                        </span>
+                        <h5 class="card-title"><a href="{{ url_for('wordles.wordle_detail', wordle_day=submission.wordle_day) }}">
                             Wordle {{ submission.wordle_day }}
-                        </a> 
+                        </a></h5>
+                    </div>
+                        
+                    <div class="card-body">
+                        <h6 class="card-subtitle">
+                        Wordle {{ submission.wordle_day }}
                         {{ submission.guesses }}/6
-                    </p>
-                    <pre>{{ submission.grid }}</pre>
+                        </h5>
+
+                        <p class="card-text">
+                            {% if submission.grid != "No grid data" %}
+                                <pre>{{ submission.grid }}</pre>
+                            {% else %}
+                                No grid data!
+                            {% endif %}
+                        </p>
+                    </div>
                 </div>
-            </li>
             {% endfor %}
-        </ul>
     </div>
 </div>
 {% endblock %}

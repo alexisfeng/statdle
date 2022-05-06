@@ -20,17 +20,6 @@ def index():
         todays_wordle=todays_wordle()
     )
 
-
-# @movies.route("/search-results/<query>", methods=["GET"])
-# def query_results(query):
-#     try:
-#         results = movie_client.search(query)
-#     except ValueError as e:
-#         flash(str(e))
-#         return redirect(url_for("movies.index"))
-
-#     return render_template("query.html", results=results)
-
 @wordles.route("/submit", methods=["GET", "POST"])
 @login_required
 def submit_wordle():

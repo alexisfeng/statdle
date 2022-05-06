@@ -48,7 +48,7 @@ def create_app(test_config=None):
             'code.jquery.com',
             'cdn.jsdelivr.net'
         ],
-        'img-src': '\'self\' data:'
+        'img-src': '\'self\' data:',
     }
     Talisman(app, content_security_policy=csp)
 

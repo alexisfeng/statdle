@@ -76,28 +76,25 @@ def generate_figure(wordles):
         label = int(width)
         offset = (1.01 ** widest) - 1
 
-        if (widest - width) / widest < 0.95: # freq can go inside bar
-            plt.gca().text(
-                width - offset, 
-                rect.get_y() + rect.get_height() / 2, 
-                label, 
-                ha="right", 
-                va="center",
-                color="white",
-                fontsize=14,
-                fontweight="bold"
-            )
+        if (widest - width) / widest < .95: # freq can go inside bar
+            x = width - offset
+            ha = "right"
+            color = "white"
         else: # bar too narrow, freq goes on right of bar
-            plt.gca().text(
-                width + offset, 
-                rect.get_y() + rect.get_height() / 2, 
-                label, 
-                ha="left", 
-                va="center",
-                color="gray",
-                fontsize=14,
-                fontweight="bold"
-            )
+            x = width + offset
+            ha = "left"
+            color = "gray"
+
+        plt.gca().text( # draw label
+            x, 
+            rect.get_y() + rect.get_height() / 2, 
+            label, 
+            ha=ha, 
+            va="center",
+            color=color,
+            fontsize=14,
+            fontweight="bold"
+        )
 
     plt.gca().margins(x=0.1)
     plt.setp(plt.gca().spines.values(), color='white')
@@ -105,5 +102,5 @@ def generate_figure(wordles):
 
     # return base64 figure image
     output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
+    FigureCanvas(fig).print_png(output, transparent=True)
     return base64.b64encode(output.getvalue()).decode()
