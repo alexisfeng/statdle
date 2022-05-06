@@ -14,10 +14,18 @@ def index():
     if form.validate_on_submit():
         return redirect(url_for("wordles.wordle_detail", wordle_day=form.search_query.data))
 
+    submissions = Wordle.objects()
+
+    if len(submissions) == 0:
+        fig = None
+    else:
+        fig = generate_figure(submissions)
+
     return render_template(
         "index.html", 
         form=form,
-        todays_wordle=todays_wordle()
+        todays_wordle=todays_wordle(),
+        fig=fig
     )
 
 @wordles.route("/submit", methods=["GET", "POST"])

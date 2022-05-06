@@ -1,9 +1,9 @@
-from flask import Blueprint, redirect, url_for, render_template, flash, request
+from flask import Blueprint, redirect, url_for, render_template, flash
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdatePasswordForm
-from ..models import User
+from ..models import User, Wordle
 
 users = Blueprint("users", __name__)
 

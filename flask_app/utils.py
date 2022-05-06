@@ -98,7 +98,8 @@ def generate_figure(wordles):
 
     plt.gca().margins(x=0.1)
     plt.setp(plt.gca().spines.values(), color='white')
-    plt.title("Guess Distribution", fontsize=16)
+
+    fig.tight_layout()
 
     # return base64 figure image
     output = io.BytesIO()

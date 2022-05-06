@@ -9,4 +9,3 @@ Werkzeug==2.1.2
 WTForms==3.0.1
 email_validator
 python-dotenv
-python-decouple

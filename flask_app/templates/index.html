@@ -6,7 +6,7 @@
         {% if current_user.is_authenticated %}
             <h1>Welcome to Statdle, {{ current_user.username }}!</h1>
         {% else %}
-        <h1>Welcome to Statdle!</h1>
+            <h1>Welcome to Statdle!</h1>
         {% endif %}
         Submit Wordle games, view stats for a Wordle day, or view stats for a user.
     </div>
@@ -46,4 +46,18 @@
         </form>
     </div>
 </div>
+
+<div class="row mt-5">
+    <div class="col text-center">
+        <h5>Global Guess Distribution</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col text-center">
+        {% if fig %}
+            <img src="data:image/png;charset=utf-8;base64,{{ fig }}" class="responsive">
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
