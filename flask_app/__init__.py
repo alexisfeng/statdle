@@ -59,4 +59,6 @@ def create_app(test_config=None):
 
     login_manager.login_view = "users.login"
 
+    app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
+
     return app

@@ -8,4 +8,3 @@ matplotlib==3.5.2
 Werkzeug==2.1.2
 WTForms==3.0.1
 email_validator
-python-dotenv
