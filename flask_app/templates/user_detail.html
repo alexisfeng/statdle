@@ -20,8 +20,9 @@
 {% endif %}
 
 <div class="row mt-3">
-    <div class="col mb-3">
-        <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
+    {% if submissions.count() > 0 %}
+        <div class="col mb-3">
+            <h5> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h5>
             {% for submission in submissions %}
                 <div class="card">
                     <div class="card-header">
@@ -49,6 +50,16 @@
                     </div>
                 </div>
             {% endfor %}
-    </div>
+        </div>
+    {% else %}
+        <div class="col mb-3 text-center">
+            {% if current_user.username == username %}
+                <h5>No submissions. 
+                <a href="{{ url_for('wordles.submit_wordle') }}">Submit your first Wordle game!</a></h5>
+            {% else %}
+                <h5>No submissions.</h5>
+            {% endif %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
