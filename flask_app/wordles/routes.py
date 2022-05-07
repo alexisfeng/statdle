@@ -132,3 +132,7 @@ def user_detail(username):
         submissions=submissions,
         fig=fig
     )
+
+@wordles.route("/about")
+def about():
+    return render_template("about.html")
