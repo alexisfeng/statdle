@@ -11,13 +11,19 @@ def current_time() -> str:
 
 def parse_pasted_wordle(text):
     split_text = text.split('\n')
+    split_text = [line for line in split_text if len(line) != 0] # remove empty lines
     match = re.search(r'Wordle (?P<day>\d{1,4}) (?P<guesses>[123456X])/6', split_text[0])
     
     if match is not None:
+        # check for invalid grid data
+        for line in split_text[1:]:
+            if re.search(r'\w+', line) is not None:
+                return None
+
         return {
             'day': match.group('day'),
             'guesses': match.group('guesses'),
-            'grid': '\n'.join(split_text[2:])
+            'grid': '\n'.join(split_text[1:])
         }
     else:
         return None
@@ -29,7 +35,7 @@ def todays_wordle():
 
 def generate_figure(wordles):
     all_guesses = []
-    buffer = 0.4 # mimic actual wordle stat page, bars with 0 count should have width > 0
+    buffer = 0.3 # mimic actual wordle stat page, bars with 0 count should have width > 0
 
     # load data
     for wordle in wordles:
