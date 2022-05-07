@@ -47,17 +47,17 @@
     </div>
 </div>
 
-<div class="row mt-5">
-    <div class="col text-center">
-        <h5>Global Guess Distribution</h5>
+{% if fig %}
+    <div class="row mt-5">
+        <div class="col text-center">
+            <h5>Global Guess Distribution</h5>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col text-center">
-        {% if fig %}
+    <div class="row">
+        <div class="col text-center">
             <img src="data:image/png;charset=utf-8;base64,{{ fig }}" class="responsive">
-        {% endif %}
+        </div>
     </div>
-</div>
+{% endif %}
 
 {% endblock %}
