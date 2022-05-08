@@ -20,7 +20,11 @@ def register():
 
         return redirect(url_for("users.login"))
 
-    return render_template("register.html", title="Register", form=form)
+    return render_template(
+        "register.html",  
+        form=form,
+        title="Register"
+    )
 
 
 @users.route("/login", methods=["GET", "POST"])
@@ -41,7 +45,11 @@ def login():
             flash("Login failed. Check your username and/or password")
             return redirect(url_for("users.login"))
 
-    return render_template("login.html", title="Login", form=form)
+    return render_template(
+        "login.html", 
+        form=form,
+        title="Login"
+    )
 
 
 @users.route("/logout")
@@ -72,6 +80,6 @@ def account():
 
     return render_template(
         "account.html",
-        title="Account",
         update_password_form=update_password_form,
+        title="Account"
     )

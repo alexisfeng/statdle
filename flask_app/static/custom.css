@@ -1,7 +1,3 @@
-.top10 { 
-    margin-top:10px; 
-}
-
 .submission-body {
     display: inline;
 }
@@ -11,10 +7,8 @@
     height: auto;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%
+.card-subtitle {
+  color: dimgray;
 }
 
 .card-text {
@@ -36,10 +30,6 @@
       column-count: 2;
     }
   }
-
-.card-subtitle {
-    color: dimgray;
-}
 
 .token {
     max-width: 800;

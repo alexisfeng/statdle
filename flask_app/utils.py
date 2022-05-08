@@ -10,20 +10,20 @@ def current_time() -> str:
     return datetime.now().strftime("%B %d, %Y at %H:%M:%S")
 
 def parse_pasted_wordle(text):
-    split_text = text.split('\n')
+    split_text = text.split("\n")
     split_text = [line for line in split_text if len(line) != 0] # remove empty lines
-    match = re.search(r'Wordle (?P<day>\d{1,4}) (?P<guesses>[123456X])/6', split_text[0])
+    match = re.search(r"Wordle (?P<day>\d{1,4}) (?P<guesses>[123456X])/6", split_text[0])
     
     if match is not None:
         # check for invalid grid data
         for line in split_text[1:]:
-            if re.search(r'\w+', line) is not None:
+            if re.search(r"\w+", line) is not None:
                 return None
 
         return {
-            'day': match.group('day'),
-            'guesses': match.group('guesses'),
-            'grid': '\n'.join(split_text[1:])
+            "day": match.group("day"),
+            "guesses": match.group("guesses"),
+            "grid": "\n".join(split_text[1:])
         }
     else:
         return None
@@ -42,13 +42,13 @@ def generate_figure(wordles):
         all_guesses.append(wordle.guesses)
 
     data = {
-        '1': buffer,
-        '2': buffer,
-        '3': buffer,
-        '4': buffer,
-        '5': buffer,
-        '6': buffer,
-        'X': buffer
+        "1": buffer,
+        "2": buffer,
+        "3": buffer,
+        "4": buffer,
+        "5": buffer,
+        "6": buffer,
+        "X": buffer
     }
     for g in all_guesses:
         data[g] = data.get(g, 0) + 1
@@ -59,15 +59,15 @@ def generate_figure(wordles):
     fig = plt.figure(figsize=(7, 4))
 
     # barplot
-    bars = plt.barh(guesses, counts, color='#538d4e', height=0.6)
-    bars[-1].set_color('#e03f3f')
+    bars = plt.barh(guesses, counts, color="#538d4e", height=0.6)
+    bars[-1].set_color("#e03f3f")
     plt.gca().invert_yaxis()
 
     # ticks
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    plt.gca().tick_params(axis=u'both', which=u'both',length=0, pad=15)
-    plt.gca().tick_params(axis='x', labelsize=0)
+    plt.gca().tick_params(axis=u"both", which=u"both",length=0, pad=15)
+    plt.gca().tick_params(axis="x", labelsize=0)
 
     for label in plt.gca().get_yticklabels(): # guess tick labels
         label.set_fontweight("bold")
@@ -103,7 +103,7 @@ def generate_figure(wordles):
         )
 
     plt.gca().margins(x=0.1)
-    plt.setp(plt.gca().spines.values(), color='white')
+    plt.setp(plt.gca().spines.values(), color="white")
 
     fig.tight_layout()
 
