@@ -22,7 +22,7 @@
 <div class="row mt-3">
     {% if submissions.count() > 0 %}
         <div class="col mb-3">
-            <h5> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h5>
+            <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
             {% for submission in submissions %}
                 <div class="card">
                     <div class="card-header">
