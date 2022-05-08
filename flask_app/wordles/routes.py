@@ -100,7 +100,10 @@ def submit_wordle():
 @wordles.route("/wordle/<wordle_day>", methods=["GET"])
 def wordle_detail(wordle_day):
     if int(wordle_day) < 1:
-        abort(404)
+        return render_template(
+            "wordle_detail.html",
+            error="Invalid Wordle day"
+        )
 
     submissions = Wordle.objects(wordle_day=wordle_day)
 
@@ -121,20 +124,26 @@ def wordle_detail(wordle_day):
 @wordles.route("/user/<username>")
 def user_detail(username):
     user = User.objects(username=username).first()
-    submissions = Wordle.objects(user=user).order_by("-wordle_day")
+    if user is not None:
+        submissions = Wordle.objects(user=user).order_by("-wordle_day")
 
-    if len(submissions) == 0:
-        fig = None
+        if len(submissions) == 0:
+            fig = None
+        else:
+            fig = generate_figure(submissions)
+
+        return render_template(
+            "user_detail.html", 
+            username=username,
+            submissions=submissions,
+            fig=fig,
+            title=username + "\'s Profile"
+        )
     else:
-        fig = generate_figure(submissions)
-
-    return render_template(
-        "user_detail.html", 
-        username=username,
-        submissions=submissions,
-        fig=fig,
-        title=username + "\'s Profile"
-    )
+        return render_template(
+            "user_detail.html", 
+            error="User does not exist",
+        )
 
 @wordles.route("/about")
 def about():

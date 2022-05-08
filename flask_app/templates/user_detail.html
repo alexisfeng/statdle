@@ -1,65 +1,76 @@
 {% extends "header.html" %}
 {% block content %}
-<div class="row mt-3">
-    <div class="col text-center">
-        <h1>{{ username }}'s Wordle Games</h1>
-    </div>
-</div>
-
-{% if fig %}
+{% if error %}
     <div class="row mt-3">
         <div class="col text-center">
-            <h5>Guess Distribution</h5>
+            <h1>{{ error }}</h1>
+            <b><a href="{{ url_for('wordles.index') }}">
+                Go back to the home page
+            </a></b>
         </div>
     </div>
-    <div class="row">
+{% else %}
+    <div class="row mt-3">
         <div class="col text-center">
-            <img src="data:image/png;charset=utf-8;base64,{{ fig }}" class="responsive">
+            <h1>{{ username }}'s Wordle Games</h1>
         </div>
     </div>
-{% endif %}
 
-<div class="row mt-3">
-    {% if submissions.count() > 0 %}
-        <div class="col mb-3">
-            <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
-            {% for submission in submissions %}
-                <div class="card">
-                    <div class="card-header">
-                        <span class="float-right">
-                            <small>{{ submission.date }}</small>
-                        </span>
-                        <h5 class="card-title"><a href="{{ url_for('wordles.wordle_detail', wordle_day=submission.wordle_day) }}">
-                            Wordle {{ submission.wordle_day }}
-                        </a></h5>
-                    </div>
-                        
-                    <div class="card-body">
-                        <h6 class="card-subtitle">
-                        Wordle {{ submission.wordle_day }}
-                        {{ submission.guesses }}/6
-                        </h5>
-
-                        <p class="card-text">
-                            {% if submission.grid != "No grid data" %}
-                                <pre>{{ submission.grid }}</pre>
-                            {% else %}
-                                No grid data!
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-            {% endfor %}
+    {% if fig %}
+        <div class="row mt-3">
+            <div class="col text-center">
+                <h5>Guess Distribution</h5>
+            </div>
         </div>
-    {% else %}
-        <div class="col mb-3 text-center">
-            {% if current_user.username == username %}
-                <h5>No submissions. 
-                <a href="{{ url_for('wordles.submit_wordle') }}">Submit your first Wordle game!</a></h5>
-            {% else %}
-                <h5>No submissions.</h5>
-            {% endif %}
+        <div class="row">
+            <div class="col text-center">
+                <img src="data:image/png;charset=utf-8;base64,{{ fig }}" class="responsive">
+            </div>
         </div>
     {% endif %}
-</div>
+
+    <div class="row mt-3">
+        {% if submissions.count() > 0 %}
+            <div class="col mb-3">
+                <h2> Wordle Games <small class="float-right">{{ submissions.count() }} submissions</small></h2>
+                {% for submission in submissions %}
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="float-right">
+                                <small>{{ submission.date }}</small>
+                            </span>
+                            <h5 class="card-title"><a href="{{ url_for('wordles.wordle_detail', wordle_day=submission.wordle_day) }}">
+                                Wordle {{ submission.wordle_day }}
+                            </a></h5>
+                        </div>
+                            
+                        <div class="card-body">
+                            <h6 class="card-subtitle">
+                            Wordle {{ submission.wordle_day }}
+                            {{ submission.guesses }}/6
+                            </h5>
+
+                            <p class="card-text">
+                                {% if submission.grid != "No grid data" %}
+                                    <pre>{{ submission.grid }}</pre>
+                                {% else %}
+                                    No grid data!
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="col mb-3 text-center">
+                {% if current_user.username == username %}
+                    <h5>No submissions. 
+                    <a href="{{ url_for('wordles.submit_wordle') }}">Submit your first Wordle game!</a></h5>
+                {% else %}
+                    <h5>No submissions.</h5>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
 {% endblock %}
