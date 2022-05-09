@@ -35,24 +35,29 @@ def todays_wordle():
 
 def generate_figure(wordles):
     all_guesses = []
-    buffer = 0.3 # mimic actual wordle stat page, bars with 0 count should have width > 0
 
     # load data
     for wordle in wordles:
         all_guesses.append(wordle.guesses)
 
     data = {
-        "1": buffer,
-        "2": buffer,
-        "3": buffer,
-        "4": buffer,
-        "5": buffer,
-        "6": buffer,
-        "X": buffer
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "X": 0
     }
     for g in all_guesses:
         data[g] = data.get(g, 0) + 1
         
+    max_value = max(data.values())
+    buffer = max_value / 10
+
+    for g in data: # mimic actual wordle stat page, bars with 0 count should have width > 0
+        data[g] = data[g] + buffer
+
     guesses, counts = zip(*data.items())
 
     # make figure
