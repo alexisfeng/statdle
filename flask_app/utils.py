@@ -53,7 +53,7 @@ def generate_figure(wordles):
         data[g] = data.get(g, 0) + 1
         
     max_value = max(data.values())
-    buffer = max_value / 15
+    buffer = max_value / 30
 
     for g in data: # mimic actual wordle stat page, bars with 0 count should have width > 0
         data[g] = data[g] + buffer
@@ -85,9 +85,9 @@ def generate_figure(wordles):
     for rect in rects:
         width = rect.get_width()
         label = round(width - buffer)
-        offset = (1.01 ** widest) - 1
+        offset = widest / 100
 
-        if (widest - width) / widest < .95: # freq can go inside bar
+        if (widest - width) / widest <= .95: # freq can go inside bar
             x = width - offset
             ha = "right"
             color = "white"
